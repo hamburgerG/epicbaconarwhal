@@ -1,0 +1,20 @@
+development:
+  adapter: mongomapper
+  host: 127.0.0.1
+  database: night
+  port: 27017
+
+test: &TEST
+  adapter: mongomapper
+  host: localhost
+  database: reddit_test
+  port: 27017
+
+production:
+  adapter: mongomapper
+  host: localhost
+  database: reddit_production
+  port: 27017
+
+cucumber:
+  <<: *TEST
