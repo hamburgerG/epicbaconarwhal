@@ -1,8 +1,9 @@
 class Subreddit
   include MongoMapper::Document
-  key :id, String
+  key :rid, String
   key :title, String
+  
   many :posts
 end
 
-Subreddit.ensure_index [[:id, 1]], :unique => true
+Subreddit.ensure_index [[:rid, 1]], :unique => true

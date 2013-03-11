@@ -1,9 +1,12 @@
 class Post
   include MongoMapper::Document
-  belongs_to :subreddit
-  key :id, String
+  key :rid, String
   key :title, String
+
+  key :subreddit_id
+
+  belongs_to :subreddit
   many :comments
 end
 
-Post.ensure_index [[:id, 1]], :unique => true
+Post.ensure_index [[:rid, 1]], :unique => true

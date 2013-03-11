@@ -1,0 +1,4 @@
+<% @posts.each do |post| %>
+<a href="/p/<%= post.rid %>"><%= "#{post.title} :  #{post.comments.count} comments" %></a>
+<hr>
+<% end %>

@@ -1,12 +1,15 @@
 class Comment
   include MongoMapper::Document
-  belongs_to :post
-  key :id, String
+  key :rid, String
   key :author, String
   key :body, String
   key :created_utc, Float
   key :downs, Fixnum
   key :ups, Fixnum
+
+  key :post_id
+  
+  belongs_to :post
 end
 
-Comment.ensure_index [[:id, 1]], :unique => true
+Comment.ensure_index [[:rid, 1]], :unique => true
