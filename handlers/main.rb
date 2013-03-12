@@ -1,18 +1,38 @@
 get '/' do
+  @s_count = Subreddit.count
+  @p_count = Post.count
+  @c_count = Comment.count
   erb :index
 end
 
 get '/subreddits' do
-  @all = Subreddit.all
+  @all = Subreddit.all(:order => :title.asc)
 
   erb :subreddits
 end
 
-get '/r/:subreddit_id' do
-  @subreddit = Subreddit.first(:rid => params[:subreddit_id])
-  @posts = Post.all(:subreddit_id => @subreddit._id)
+get '/posts' do
+  @all = Post.all(:order => :title.asc)
 
   erb :posts
+end
+
+get '/comments' do
+  @all = Comment.all(:order => :author.asc)
+
+  erb :comments
+end
+
+get '/r/:subreddit_id' do
+  @subreddit = Subreddit.first(:rid => params[:subreddit_id])
+  @posts = @subreddit.posts
+  erb :one_subreddit
+end
+
+get '/p/:post_id' do
+  @post = Post.first(:rid => params[:post_id])
+  @comments = @post.comments
+  erb :one_post
 end
 
 get '/populate' do
@@ -41,14 +61,7 @@ get '/populate' do
     c.ups = comment.ups
     c.save
   end
-  redirect '/view'
-end
-
-get '/view' do
-  @s_count = Subreddit.count
-  @p_count = Post.count
-  @c_count = Comment.count
-  erb :view
+  redirect '/'
 end
 
 # get '/all.json' do

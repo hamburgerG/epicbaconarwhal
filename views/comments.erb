@@ -1,0 +1,5 @@
+<% @all.each do |comment| %>
+<p><%= comment.body %></p>
+<p><%= " posted by #{comment.author}. #{comment.ups} ups. #{comment.downs} downs."%></p>
+<hr>
+<% end %>
