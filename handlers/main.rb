@@ -1,8 +1,12 @@
 get '/' do
+  erb :index
+end
+
+get '/menu' do
   @s_count = Subreddit.count
   @p_count = Post.count
   @c_count = Comment.count
-  erb :index
+  erb :menu
 end
 
 get '/subreddits' do
@@ -13,6 +17,7 @@ end
 
 get '/posts' do
   @all = Post.all(:order => :title.asc)
+  @all.sort_by! {|post| post.comments.count}.reverse!
   erb :posts
 end
 
@@ -59,14 +64,18 @@ get '/populate' do
     c.ups = comment.ups
     c.save
   end
-  redirect '/'
+  redirect '/menu'
 end
 
-get '/metrics' do
-  
+get '/words' do
+  all = Comment.all
+  word_count = Hash.new(0)
+  all.each do |comment|
+    words = comment.body.split
+    words.each {|word| word_count[word.downcase] += 1}
+  end
+  long = word_count.select {|word, count| word.length > 6}
+  words = long.sort_by {|word, count| count}.reverse!
+  @words = words.first(500)
+  erb :words
 end
-
-# get '/all.json' do
-#   content_type :json
-#   Subreddit.all.to_json
-# end
