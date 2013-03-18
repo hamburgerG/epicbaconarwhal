@@ -1,4 +1,10 @@
-<% @all.each do |subreddit| %>
-<a href="/r/<%= subreddit.rid %>"><%= "#{subreddit.title} :  #{subreddit.posts.count} posts" %></a>
-<hr>
-<% end %>
+<svg xmlns="http://www.w3.org/2000/svg" version="1.1" height="<%= @all.count * 17 %>">
+  <% @last = 0 %>
+  <% @all.each do |subreddit| %>
+    <% size = subreddit.posts.count * 2 %>
+    <% last = @last %>
+    <rect x="0" y="<%= last %>" width="<%= size %>" height="15" fill="gray"/>
+    <text x="<%= size + 4 %>" y="<%= last + 11 %>" fill="black"><%= subreddit.title %></text>
+    <% @last += 17 %>
+  <% end %>
+</svg>

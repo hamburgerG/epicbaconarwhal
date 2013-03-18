@@ -6,7 +6,8 @@ get '/' do
 end
 
 get '/subreddits' do
-  @all = Subreddit.all(:order => :title.asc)
+  @all = Subreddit.all
+  @all.sort_by! {|subreddit| subreddit.posts.count}.reverse!
   erb :subreddits
 end
 
