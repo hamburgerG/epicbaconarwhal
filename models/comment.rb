@@ -6,9 +6,7 @@ class Comment
   key :created_utc, Float
   key :downs, Fixnum
   key :ups, Fixnum
-
   key :post_id
-  
   belongs_to :post
 end
 

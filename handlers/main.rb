@@ -7,19 +7,16 @@ end
 
 get '/subreddits' do
   @all = Subreddit.all(:order => :title.asc)
-
   erb :subreddits
 end
 
 get '/posts' do
   @all = Post.all(:order => :title.asc)
-
   erb :posts
 end
 
 get '/comments' do
   @all = Comment.all(:order => :author.asc)
-
   erb :comments
 end
 
@@ -62,6 +59,10 @@ get '/populate' do
     c.save
   end
   redirect '/'
+end
+
+get '/metrics' do
+  
 end
 
 # get '/all.json' do

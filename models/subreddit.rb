@@ -2,7 +2,6 @@ class Subreddit
   include MongoMapper::Document
   key :rid, String
   key :title, String
-  
   many :posts
 end
 
